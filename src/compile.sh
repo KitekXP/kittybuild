@@ -12,7 +12,7 @@ compile_c() {
 	local      OUT="${NAME%.*}.o"
 
 	local LIBFLAG=""
-	if [ "$TYPE" = "lib-static" ] || [ "$TYPE" = "lib-dynamic" ]
+	if try [ "$TYPE" = "lib-static" ] || try [ "$TYPE" = "lib-dynamic" ]
 	then
 		local LIBFLAG="-c"
 	fi
@@ -20,7 +20,7 @@ compile_c() {
 	mkdir -p "$OUT_DIR"
 
 	info "Compiling C: $SRC -> $OUT_DIR/$OUT..."
-	"$CC" $CFLAGS $LDLIBS "$LIBFLAG" -c "$SRC" -o "$OUT_DIR/$OUT" 
+	"$CC" "$CFLAGS" -c "$SRC" -o "$OUT_DIR/$OUT" 
 }
 
 link_c() {
@@ -29,20 +29,20 @@ link_c() {
 	local     OUT="$3"
 
 	local LIBFLAG=""
-	if [ "$TYPE" = "lib-dynamic" ]
+	if try [ "$TYPE" = "lib-dynamic" ]
 	then
 		local LIBFLAG="-fPIC -shared"
 	fi
 
 	mkdir -p "$OUT_DIR"
 
-	if [ "$TYPE" = "lib-static" ]
+	if try [ "$TYPE" = "lib-static" ]
 	then
 		"$AR" rcs "$OUT_DIR/$OUT" "$IN_DIR"/*.o
 		return 0
 	fi
 	info "Linking C: $IN_DIR/* -> $OUT_DIR/$OUT..."
-	"$CC" $LDFLAGS "$LIBFLAG" "$IN_DIR"/*.o -o "$OUT_DIR/$OUT"
+	"$CC" "$LDFLAGS" "$LIBFLAG" "$IN_DIR"/*.o -o "$OUT_DIR/$OUT"
 }
 ###############################################################
 
@@ -56,14 +56,14 @@ compile_rust() {
     local PROFILE="$2"
     
     # Ensure profile is valid
-    [ -z "$PROFILE" ] && PROFILE="debug"
+    try [ -z "$PROFILE" ] && PROFILE="debug"
     
     info "Building project in $PKG_DIR with cargo..."
     
     # Run cargo build
     # Using --manifest-path allows you to point to a specific Cargo.toml
     # if it isn't in the current directory
-    if [ "$PROFILE" = "release" ]; then
+    if try [ "$PROFILE" = "release" ]; then
         (cd "$PKG_DIR" && cargo build --release)
     else
         (cd "$PKG_DIR" && cargo build)

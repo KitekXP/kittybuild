@@ -1,21 +1,19 @@
 # shellcheck shell=dash
 
-export NULL=">/dev/null"
-export SHOW_ALL="2>$1"
+get_time() {
+	date +"%H:%M:%S.%3N"
+}
 
 info() {
-	CURRENT_TIME=$(date +"%H:%M:%S.%3N")
-	printf "[%s/INFO] %s\n" "$CURRENT_TIME" "$@"
+	printf "\033[0m[\033[0m%s\033[1m/\033[0;34mINFO]\033[0m %s\n" "$(get_time)" "$@"
 }
 
 warn() {
-	CURRENT_TIME=$(date +"%H:%M:%S.%3N")
-	printf "[%s/WARNING] %s\n" "$CURRENT_TIME" "$@"
+	printf "\033[33m[\033[0m%s\033[1m/\033[0;33mWARNING]\033[0m %s\n" "$(get_time)" "$@"
 }
 
 error() {
-	CURRENT_TIME=$(date +"%H:%M:%S.%3N")
-	printf "[%s/ERROR] %s\n" "$CURRENT_TIME" "$@"
+	printf "\033[31m[\033[0m%s\033[1m/\033[0;31mERROR]\033[0m %s\n" "$(get_time)" "$@"
 }
 
 fatal_error() {
@@ -24,4 +22,12 @@ fatal_error() {
 
 unfatal_error() {
 	set +e
+}
+
+try() {
+    unfatal_error
+    "$@"
+    local status=$?
+    fatal_error
+    return $status
 }

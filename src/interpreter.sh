@@ -1,7 +1,9 @@
 # shellcheck shell=dash
+
 # shellcheck source=builtin.sh
 # shellcheck source=parse.sh
 # shellcheck source=compile.sh
+# shellcheck source=extra.sh
 
 INSTALL_PATH=$HOME/.tools/kittybuild
 export NOT_GUIDE=true
@@ -10,10 +12,11 @@ export NOT_GUIDE=true
 
 fatal_error
 
+. "$INSTALL_PATH/extra.sh"
 . "$INSTALL_PATH/parse.sh"
 . "$INSTALL_PATH/compile.sh"
 
-if [ ! -f "./kittyguide" ]
+if [ try ! -f "./kittyguide" ]
 then
 	error "Kittyguide not found in current directory!" 1
 else
@@ -24,4 +27,6 @@ fi
 
 pass "$@"
 
+# Reset to before execution
+rst_select
 unfatal_error

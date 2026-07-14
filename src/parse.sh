@@ -1,13 +1,15 @@
 # shellcheck shell=dash
-# shellcheck source=builtin.sh
+
+# shellcheck source=extra.sh
+# shellcheck source=parallel.sh
 
 pass() {
-	if ! command -v "$1" >/dev/null 2>&1
+	unfatal_error
+	if try ! func_exists "$1"
 	then
 		error "Recipe $1 not found!" 1
 	else
 		info "Using recipe $1."
-		export NOT_GUIDE=false
-		"$1"
 	fi
+	fatal_error
 }
