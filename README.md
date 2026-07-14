@@ -22,5 +22,5 @@ Example:
 	`kittybuild install`
 
 ## Contribution
-I mean if you want, just fork the repo and mod it.
+I mean if you want, just fork the repo, mod it and create a pull request.
 I'll try to review it in my free time.
