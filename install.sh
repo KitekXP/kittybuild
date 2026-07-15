@@ -11,6 +11,7 @@ then
 fi
 
 
+# But is it possible with accurate hitboxes?
 
 mkdir -p "$INSTALL_PATH" "$BIN_PATH"
 
