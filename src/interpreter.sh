@@ -13,7 +13,7 @@ fatal_error
 . "$KITTYBUILD_INSTALL_PATH/extra.sh"
 . "$KITTYBUILD_INSTALL_PATH/parse.sh"
 . "$KITTYBUILD_INSTALL_PATH/compile.sh"
-. "$KITTYBUILD_INSTALL_PATH/"
+. "$KITTYBUILD_INSTALL_PATH/parallel.sh"
 
 if [ ! try -f "./Kittyguide" ]
 then

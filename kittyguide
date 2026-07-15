@@ -1,3 +1,12 @@
 build() {
 	info "IT WORKS!"
+	if try [ "$TEST_VAR" == "1" ]
+	then
+		warn "\$TEST_VAR is set to $TEST_VAR"
+	fi
+	if try [ "$USER" == "root" ]
+	then
+		error "Dont run builds as root!"
+	fi
+	info "Testing finished!"
 }
