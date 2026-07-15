@@ -41,28 +41,34 @@ link_c() {
 	info "Linking C: $IN_DIR/* -> $OUT_DIR/$OUT..."
 	"$CC" "$LDFLAGS" "$LIBFLAG" "$IN_DIR"/*.o -o "$OUT_DIR/$OUT"
 }
-###############################################################
 
 #RUST
 ###############################################################
 compile_rust() {
-    # $1 = Source directory (Cargo.toml location)
-    # $2 = Build profile (debug or release)
-    
-    local PKG_DIR="$1"
-    local PROFILE="$2"
-    
-    # Ensure profile is valid
-    try [ -z "$PROFILE" ] && PROFILE="debug"
-    
-    info "Building project in $PKG_DIR with cargo..."
-    
-    # Run cargo build
-    # Using --manifest-path allows you to point to a specific Cargo.toml
-    # if it isn't in the current directory
-    if try [ "$PROFILE" = "release" ]; then
-        (cd "$PKG_DIR" && cargo build --release)
-    else
-        (cd "$PKG_DIR" && cargo build)
-    fi
+	local PROFILE="$1"
+
+	info "Building rust project in $PWD using cargo..."
+
+	if try [ "$PROFILE" = "release" ]
+	then
+		cargo build --release
+	else
+		cargo build
+	fi
+}
+
+install_rust() {
+	info "Installing rust project in $PWD using cargo..."
+
+	cargo install
+}
+
+#GO
+###############################################################
+compile_go() {
+	SRC="$1"
+	OUT_DIR="$2"
+	OUT="$3"
+	info "Compiling go: $SRC -> $OUT_DIR/$OUT..."
+	go build -cflags="$CFLAGS" -ldflags="$LDFLAGS" -o "$OUT_DIR/$OUT" "$SRC"
 }
