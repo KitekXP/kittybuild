@@ -1,5 +1,11 @@
 #!/bin/dash
 
+# shellcheck disable=SC2059
+
+gen_wrapper() {
+	printf "$(cat ./src/wrapper.sh.template)" "$SHELL" "$1" > "$1/wrapper.sh"
+}
+
 install_kittybuild() {
 	if [ ! -n "${INSTALL_PATH+x}" ]
 	then
@@ -11,23 +17,20 @@ install_kittybuild() {
 		local BIN_PATH="$HOME/.local/bin"
 	fi
 
+	local EXEC_NAME="kittybuild"
+
 
 	# But is it possible with accurate hitboxes?
 
 	mkdir -p "$INSTALL_PATH" "$BIN_PATH"
 
-	printf "#!/bin/dash
-KITTYBUILD_INSTALL_PATH=%s
-KITTYBUILD_BIN_PATH=%s" \
-		"$INSTALL_PATH" \
-		"$BIN_PATH" \
-		> "$INSTALL_PATH/wrapper.sh"
-
-	chmod +x "$BIN_PATH/*"
+	gen_wrapper "$INSTALL_PATH"
 
 	cp src/* "$INSTALL_PATH"
 
-	ln -sf "$INSTALL_PATH/interpreter.sh" "$BIN_PATH"
+	chmod +x "$BIN_PATH/*"
+
+	ln -sf "$INSTALL_PATH/wrapper.sh" "$BIN_PATH/$EXEC_NAME"
 }
 
 install_kittybuild "$@"
