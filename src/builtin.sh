@@ -1,5 +1,3 @@
-# shellcheck shell=dash
-
 get_time() {
 	date +"%H:%M:%S.%3N"
 }

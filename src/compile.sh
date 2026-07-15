@@ -1,6 +1,3 @@
-# shellcheck shell=dash
-# shellcheck source=builtin.sh
-
 #C
 ###############################################################
 compile_c() {

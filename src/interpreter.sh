@@ -1,10 +1,7 @@
-# shellcheck shell=dash
-
 # shellcheck source=builtin.sh
 # shellcheck source=parse.sh
 # shellcheck source=compile.sh
 # shellcheck source=extra.sh
-# shellcheck input=builtin.sh
 
 INSTALL_PATH=$HOME/.tools/kittybuild
 export NOT_GUIDE=true

@@ -1,5 +1,3 @@
-# shellcheck shell=dash
-
 export OUT2NULL="> /dev/null"
 export ERR2OUT="2>$1"
 

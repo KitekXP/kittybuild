@@ -1,5 +1,3 @@
-# shellcheck shell=dash
-
 # shellcheck source=extra.sh
 # shellcheck source=parallel.sh
 
