@@ -21,13 +21,12 @@ install_kittybuild() {
 
 
 	# But is it possible with accurate hitboxes?
-
 	mkdir -p "$INSTALL_PATH" "$BIN_PATH"
 
 	gen_wrapper "$INSTALL_PATH"
+	chmod +x "$INSTALL_PATH/wrapper.sh"
 
-	cp src/* "$INSTALL_PATH"
-
+	cp -r src/* "$INSTALL_PATH"
 	chmod +x "$BIN_PATH/*"
 
 	ln -sf "$INSTALL_PATH/wrapper.sh" "$BIN_PATH/$EXEC_NAME"
