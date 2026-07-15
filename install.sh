@@ -3,7 +3,7 @@
 # shellcheck disable=SC2059
 
 gen_wrapper() {
-	printf "$(cat ./src/wrapper.sh.template)" "$SHELL" "$1" > "$1/wrapper.sh"
+	printf "$(cat ./templates/wrapper.sh.template)" "$SHELL" "$1" > "$1/wrapper.sh"
 }
 
 install_kittybuild() {
