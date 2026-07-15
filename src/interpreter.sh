@@ -4,26 +4,28 @@
 # shellcheck source=parse.sh
 # shellcheck source=compile.sh
 # shellcheck source=extra.sh
+# shellcheck input=builtin.sh
 
 INSTALL_PATH=$HOME/.tools/kittybuild
 export NOT_GUIDE=true
 
-. "$INSTALL_PATH/builtin.sh"
+. "KITTYBUILD_INSTALL_PATH/builtin.sh"
 
 fatal_error
 
-. "$INSTALL_PATH/extra.sh"
-. "$INSTALL_PATH/parse.sh"
-. "$INSTALL_PATH/compile.sh"
+. "$KITTYBUILD_INSTALL_PATH/extra.sh"
+. "$KITTYBUILD_INSTALL_PATH/parse.sh"
+. "$KITTYBUILD_INSTALL_PATH/compile.sh"
+. "$KITTYBUILD_INSTALL_PATH/"
 
-if [ try ! -f "./kittyguide" ]
+if [ ! try -f "./Kittyguide" ]
 then
 	error "Kittyguide not found in current directory!" 1
 else
-	info "Executing kittyguide!"
+	info "Executing Kittyguide!"
 fi
 
-. "./kittyguide"
+. "./Kittyguide"
 
 pass "$@"
 
