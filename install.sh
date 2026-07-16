@@ -5,7 +5,7 @@
 . "./src/builtin.sh"
 
 gen_wrapper() {
-	printf "$(cat ./templates/wrapper.sh.template)" "$SHELL" "$1" > "$1/wrapper.sh"
+	printf "$(cat ./templates/wrapper.sh.template)" "$(which dash)" "$INSTALL_PATH" > "$INSTALL_PATH/wrapper.sh"
 }
 
 install_kittybuild() {

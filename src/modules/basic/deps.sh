@@ -4,17 +4,24 @@ depends_on() {
 		info "Running in parallel:\n" "$@"
 		run_jobs "$@"
 	else
-		info "Running $$i as a dependency for $CALLED_RECIPE"
-		local i=1
-		while try [ "$$i" != "" ]
-		do
-			if try func_exists
+		info "Running dependencies for $CALLED_RECIPE"
+		for i in "$@"; do
+			if func_exists "$i"
 			then
-				"$$i"
+				info "Running dependency $i..."
+				"$i"
 			else
-				error "Wrongly written kittyguide, found nonexistent dependencies!"
+				error "Fix your guide, dependency '$i' not found\!"
 			fi
-			i=i+1
 		done
+	fi
+}
+
+reuse() {
+	if try [ -f "$1" ]
+	then
+		try return 1
+	else
+		return 0
 	fi
 }

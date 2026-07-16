@@ -13,7 +13,7 @@ rst_select() {
 }
 
 func_exists() {
-	command -v "$1" "$2NULL" "$ERR2OUT"
+	command -v "$1" "$OUT2NULL" "$ERR2OUT"
 }
 
 save2logs() {

@@ -1,17 +1,15 @@
 # shellcheck source=extra.sh
 # shellcheck source=builtin.sh
 
-is_run() {
-	kill -0 "$1" "$2NULL"
+running() {
+	kill -0 "$1" >/dev/null 2>&1
 }
 
 _run_job() {
-	unfatal_error
-	if ! func_exists "$1"
+	if try ! func_exists "$1"
 	then
-		error "while executing in parallel:\nfunction $1 doesnt exist"
+		error "while executing in parallel:\nfunction $1 doesnt exist\!" 1
 	fi
-	fatal_error
 	"$1" &
 	local JOB_PID="$!"
 	printf "%s" "$JOB_PID"
@@ -20,7 +18,6 @@ _run_job() {
 run_jobs() {
 	export JOB0_PID
 	JOB0_PID="$(_run_job "$1")"
-	unfatal_error
 	if try [ "$2" != "" ]
 	then
 		export JOB1_PID
@@ -38,5 +35,4 @@ run_jobs() {
 		export JOB3_PID
 		JOB3_PID="$(_run_job "$4")"
 	fi
-	fatal_error
 }

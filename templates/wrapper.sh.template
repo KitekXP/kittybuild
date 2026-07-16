@@ -1,3 +1,5 @@
 #!%s
 
-"$SHELL" -c "export KITTYBUILD_INSTALL_PATH=%s && $KITTYBUILD_INSTALL_PATH/main.sh"
+export KITTYBUILD_INSTALL_PATH=%s
+
+"$(which dash)" -c "$KITTYBUILD_INSTALL_PATH"/main.sh

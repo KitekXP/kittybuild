@@ -7,7 +7,8 @@ load_basic() {
 load_module() {
 	if try [ ! -f "$KITTYBUILD_INSTALL_PATH/$1" ]
 	then
-		error "kittybuild module $1 doesn't exist!" 1
+		error "Kittybuild module $1 doesn't exist\!" 1
 	fi
+	info "Loading module $1..."
 	. "$KITTYBUILD_INSTALL_PATH/modules/$1"
 }

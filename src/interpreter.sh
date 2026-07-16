@@ -15,6 +15,6 @@ run_kittyguide() {
 		info "Loading Kittyguide"
 		parse_kittyguide "$1"
 	else
-		error "Kittyguide not found!" 1
+		error "Kittyguide not found\!" 1
 	fi
 }

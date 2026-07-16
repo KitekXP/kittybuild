@@ -3,7 +3,7 @@ export EXECUTING_KITTYGUIDE=false
 . "$KITTYBUILD_INSTALL_PATH/load_modules.sh"
 
 set -e
-info "Every error is fatal now!"
+info "Every error is fatal now\!"
 
 info "Loading basic modules"
 load_basic "$KITTYBUILD_INSTALL_PATH"
