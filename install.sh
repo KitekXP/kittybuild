@@ -23,10 +23,14 @@ install_kittybuild() {
 	info "Setting variables..."
 	local EXEC_NAME="kittybuild"
 
-
 	# But is it possible with accurate hitboxes?
+
 	warn "Cleaning installation dir: $INSTALL_PATH..."
-	rm -rf "$INSTALL_PATH"
+	rm -f "${INSTALL_PATH:?}"/* >/dev/null 2>&1
+
+	warn "Cleaning basic modules: $INSTALL_PATH/modules/basic..."
+	rm -rf "${INSTALL_PATH:?}"/modules/basic
+
 	info "Creating installation dir: $INSTALL_PATH..."
 	mkdir -p "$INSTALL_PATH" "$BIN_PATH"
 
@@ -39,7 +43,7 @@ install_kittybuild() {
 	chmod +x "$BIN_PATH"/*
 
 	info "Creating a symbolic link for the wrapper: $BIN_PATH/$EXEC_NAME..."
-	ln -sf "$INSTALL_PATH"/wrapper.sh "$BIN_PATH/$EXEC_NAME"
+	ln -sf "$INSTALL_PATH"/wrapper.sh "$BIN_PATH"/"$EXEC_NAME"
 
 	info "Installed successfuly!"
 }
